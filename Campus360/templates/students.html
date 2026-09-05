@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Students</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+{% if "admin" in session %}
+
+<li><a href="/admin_dashboard">
+<i class="fa-solid fa-house"></i> Dashboard
+</a></li>
+
+<li><a href="/students">
+<i class="fa-solid fa-user-graduate"></i> Students
+</a></li>
+
+<li><a href="/add_student">
+<i class="fa-solid fa-user-plus"></i> Add Student
+</a></li>
+
+<li><a href="/faculty">
+<i class="fa-solid fa-chalkboard-user"></i> Faculty
+</a></li>
+
+{% endif %}
+
+{% if "faculty" in session %}
+
+<li><a href="/faculty_dashboard">
+<i class="fa-solid fa-house"></i> Dashboard
+</a></li>
+
+<li><a href="/students">
+<i class="fa-solid fa-user-graduate"></i> Students
+</a></li>
+
+{% endif %}
+
+<li><a href="/logout">
+<i class="fa-solid fa-right-from-bracket"></i> Logout
+</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<h2>Students List</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }}">
+{{ message }}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="page-header">
+    
+<form action="/students" method="GET">
+
+<input
+type="text"
+name="search"
+value="{{ request.args.get('search','') }}"
+placeholder="Search by Roll No or Name"
+class="search-bar">
+
+<button class="btn">
+<i class="fa-solid fa-magnifying-glass"></i>
+Search
+</button>
+
+</form>
+
+{% if "admin" in session %}
+<a href="/add_student" class="btn btn-success">
+<i class="fa-solid fa-user-plus"></i>
+Add Student
+</a>
+{% endif %}
+
+</div>
+
+<table>
+
+<tr>
+
+<th>Roll No</th>
+<th>Name</th>
+<th>Branch</th>
+<th>Year</th>
+<th>Section</th>
+<th>Phone</th>
+<th>Action</th>
+
+</tr>
+
+{% for student in students %}
+
+<tr>
+
+<td>{{ student['rollno'] }}</td>
+
+<td>{{ student['name'] }}</td>
+
+<td>{{ student['branch'] }}</td>
+
+<td>{{ student['year'] }}</td>
+
+<td>{{ student['section'] }}</td>
+
+<td>{{ student['phone'] }}</td>
+
+<td>
+
+<a href="/view_student/{{ student['rollno'] }}" class="btn">
+
+View
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>View Attendance</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="page-header">
+
+<h2>Attendance Records</h2>
+
+</div>
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="info-bar">
+
+<b>Branch :</b> {{branch}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Year :</b> {{year}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Date :</b> {{date}}
+
+</div>
+
+<br>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Roll No</th>
+<th>Name</th>
+
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+<th>P4</th>
+<th>P5</th>
+<th>P6</th>
+
+</tr>
+
+{% for student in students %}
+
+<tr>
+
+<td>{{student['rollno']}}</td>
+
+<td>{{student['name']}}</td>
+
+<td>
+{% if student['P1']=="Present" %}
+<span class="badge-success">Present</span>
+{% else %}
+<span class="badge-danger">Absent</span>
+{% endif %}
+</td>
+
+<td>
+{% if student['P2']=="Present" %}
+<span class="badge-success">Present</span>
+{% else %}
+<span class="badge-danger">Absent</span>
+{% endif %}
+</td>
+
+<td>
+{% if student['P3']=="Present" %}
+<span class="badge-success">Present</span>
+{% else %}
+<span class="badge-danger">Absent</span>
+{% endif %}
+</td>
+
+<td>
+{% if student['P4']=="Present" %}
+<span class="badge-success">Present</span>
+{% else %}
+<span class="badge-danger">Absent</span>
+{% endif %}
+</td>
+
+<td>
+{% if student['P5']=="Present" %}
+<span class="badge-success">Present</span>
+{% else %}
+<span class="badge-danger">Absent</span>
+{% endif %}
+</td>
+
+<td>
+{% if student['P6']=="Present" %}
+<span class="badge-success">Present</span>
+{% else %}
+<span class="badge-danger">Absent</span>
+{% endif %}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<br>
+
+<div class="action-buttons">
+
+<a
+href="/edit_attendance?branch={{branch}}&year={{year}}&date={{date}}"
+class="btn btn-warning">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit Attendance
+
+</a>
+
+<a
+href="/delete_attendance?branch={{branch}}&year={{year}}&date={{date}}"
+class="btn btn-danger"
+onclick="return confirm('Delete this attendance?')">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete Attendance
+
+</a>
+
+<a
+href="/attendance?branch={{branch}}&year={{year}}&date={{date}}"
+class="btn">
+
+Back
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

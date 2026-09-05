@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Create Weekly Timetable</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="form-box">
+
+<h2>Create Weekly Timetable</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<form method="POST">
+
+<select name="branch" required>
+
+<option value="">Select Branch</option>
+
+<option>CSE</option>
+<option>ECE</option>
+<option>EEE</option>
+<option>MECH</option>
+<option>CIVIL</option>
+
+</select>
+
+<br><br>
+
+<select name="year" required>
+
+<option value="">Select Year</option>
+
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+
+</select>
+
+<br><br>
+
+<table class="timetable">
+
+<tr>
+
+<th>Day</th>
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+<th>P4</th>
+<th>P5</th>
+<th>P6</th>
+
+</tr>
+
+{% for day in ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'] %}
+
+<tr>
+
+<td>
+
+{{day}}
+
+<input type="hidden" name="day" value="{{day}}">
+
+</td>
+
+<td><input type="text" name="period1" required></td>
+<td><input type="text" name="period2" required></td>
+<td><input type="text" name="period3" required></td>
+<td><input type="text" name="period4" required></td>
+<td><input type="text" name="period5" required></td>
+<td><input type="text" name="period6" required></td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<button class="btn btn-success">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+Save Weekly Timetable
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

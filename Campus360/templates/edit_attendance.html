@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Attendance</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="page-header">
+
+<h2>Edit Attendance</h2>
+
+</div>
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<form method="POST">
+
+<input type="hidden" name="branch" value="{{branch}}">
+<input type="hidden" name="year" value="{{year}}">
+<input type="hidden" name="date" value="{{date}}">
+
+<div class="info-bar">
+
+<b>Branch :</b> {{branch}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Year :</b> {{year}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Date :</b> {{date}}
+
+</div>
+
+<br>
+
+<div style="text-align:right;margin-bottom:10px;">
+
+<label>
+
+<input
+type="checkbox"
+id="selectAll">
+
+<b>Select All Present</b>
+
+</label>
+
+</div>
+
+<table>
+
+<tr>
+
+<th>Roll No</th>
+<th>Name</th>
+
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+<th>P4</th>
+<th>P5</th>
+<th>P6</th>
+
+</tr>
+
+{% for student in students %}
+
+{% set i=loop.index0 %}
+
+<tr>
+
+<td>
+
+{{student['rollno']}}
+
+<input
+type="hidden"
+name="rollno"
+value="{{student['rollno']}}">
+
+</td>
+
+<td>{{student['name']}}</td>
+
+{% for p in range(1,7) %}
+
+<td align="center">
+
+<input
+
+type="checkbox"
+
+class="attendanceBox"
+
+name="status_{{i}}_{{p}}"
+
+value="Present"
+
+{% if student["P"+p|string]=="Present" %}
+
+checked
+
+{% endif %}
+
+>
+
+</td>
+
+{% endfor %}
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<div class="action-buttons">
+
+<button
+type="submit"
+class="btn btn-success">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+Update Attendance
+
+</button>
+
+<a
+href="/view_attendance?branch={{branch}}&year={{year}}&date={{date}}"
+class="btn">
+
+Back
+
+</a>
+
+</div>
+
+</form>
+
+<script>
+
+const selectAll=document.getElementById("selectAll");
+
+selectAll.onchange=function(){
+
+document.querySelectorAll(".attendanceBox").forEach(function(box){
+
+box.checked=selectAll.checked;
+
+});
+
+};
+
+</script>
+
+</div>
+
+</body>
+
+</html>

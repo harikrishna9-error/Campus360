@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Fee Management</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h2>Fee Management</h2>
+
+<table>
+
+<tr>
+
+<th>Roll No</th>
+
+<th>Name</th>
+
+<th>Total Fee</th>
+
+<th>Paid</th>
+
+<th>Balance</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for student in fees %}
+
+<tr>
+
+<td>{{ student['rollno'] }}</td>
+
+<td>{{ student['name'] }}</td>
+
+<td>{{ student['total_fee'] }}</td>
+
+<td>{{ student['paid'] }}</td>
+
+<td>{{ student['balance'] }}</td>
+
+<td>{{ student['status'] }}</td>
+
+<td>
+
+<a href="/update_fee/{{student['rollno']}}" class="btn">
+
+Update
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

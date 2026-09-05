@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Student Details</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+{% if student %}
+
+<div class="profile-card">
+
+<h2>{{ student['name'] }}</h2>
+
+<p><b>Roll No :</b> {{ student['rollno'] }}</p>
+
+<p><b>Branch :</b> {{ student['branch'] }}</p>
+
+<p><b>Year :</b> {{ student['year'] }}</p>
+
+<p><b>Section :</b> {{ student['section'] }}</p>
+
+<p><b>Phone :</b> {{ student['phone'] }}</p>
+
+<p><b>Email :</b> {{ student['email'] }}</p>
+
+</div>
+
+{% else %}
+
+<h2 class="red center">
+
+Student Not Found
+
+</h2>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>

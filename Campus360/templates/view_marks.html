@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>View Marks</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="page-header">
+
+<h2>View Marks</h2>
+
+</div>
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+
+{{message}}
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<div class="info-bar">
+
+<b>Branch :</b> {{branch}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Year :</b> {{year}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Semester :</b> {{semester}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Exam :</b> {{exam}}
+
+</div>
+
+<br>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Roll No</th>
+
+<th>Name</th>
+
+<th>Python</th>
+
+<th>Java</th>
+
+<th>DBMS</th>
+
+<th>OS</th>
+
+<th>CN</th>
+
+<th>Total</th>
+
+<th>%</th>
+
+<th>Grade</th>
+
+<th>Result</th>
+
+<th>Actions</th>
+
+</tr>
+
+{% for row in students %}
+
+<tr>
+
+<td>{{row['rollno']}}</td>
+
+<td>{{row['name']}}</td>
+
+<td>{{row['python']}}</td>
+
+<td>{{row['java']}}</td>
+
+<td>{{row['dbms']}}</td>
+
+<td>{{row['os']}}</td>
+
+<td>{{row['cn']}}</td>
+
+<td>{{row['total']}}</td>
+
+<td>{{row['percentage']}}</td>
+
+<td>{{row['grade']}}</td>
+
+<td>
+
+{% if row['result']=="PASS" %}
+
+<span class="badge-success">
+
+PASS
+
+</span>
+
+{% else %}
+
+<span class="badge-danger">
+
+FAIL
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<a
+
+href="/edit_marks/{{row['id']}}"
+
+class="btn btn-warning">
+
+<i class="fa-solid fa-pen"></i>
+
+</a>
+
+<a
+
+href="/delete_marks/{{row['id']}}"
+
+class="btn btn-danger"
+
+onclick="return confirm('Delete this marks record?')">
+
+<i class="fa-solid fa-trash"></i>
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<br>
+
+<div class="action-buttons">
+
+<a
+
+href="/marks?branch={{branch}}&year={{year}}&semester={{semester}}&exam={{exam}}"
+
+class="btn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

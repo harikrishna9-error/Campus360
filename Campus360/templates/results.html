@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Results</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li><a href="/student_dashboard">Dashboard</a></li>
+
+<li><a href="/results">Results</a></li>
+
+<li><a href="/change_password">
+<i class="fa-solid fa-key"></i> Change Password
+</a></li>
+
+<li><a href="/logout">Logout</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<h2>Semester Results</h2>
+
+<table>
+
+<tr>
+
+<th>Semester</th>
+
+<th>SGPA</th>
+
+<th>CGPA</th>
+
+<th>Result</th>
+
+</tr>
+
+{% for row in results %}
+
+<tr>
+
+<td>{{ row['semester'] }}</td>
+
+<td>{{ row['sgpa'] }}</td>
+
+<td>{{ row['cgpa'] }}</td>
+
+<td>{{ row['result'] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

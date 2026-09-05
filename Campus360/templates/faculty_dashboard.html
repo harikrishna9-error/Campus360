@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Faculty Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li>
+<a href="/faculty_dashboard">
+<i class="fa-solid fa-house"></i> Dashboard
+</a>
+</li>
+
+<li>
+<a href="/students">
+<i class="fa-solid fa-user-graduate"></i> Students
+</a>
+</li>
+
+<li>
+<a href="/attendance">
+<i class="fa-solid fa-calendar-check"></i> Attendance
+</a>
+</li>
+
+<li>
+<a href="/marks">
+<i class="fa-solid fa-square-poll-vertical"></i> Marks
+</a>
+</li>
+
+<li>
+<a href="/faculty_profile">
+<i class="fa-solid fa-user"></i> Profile
+</a>
+</li>
+
+<li>
+<a href="/logout">
+<i class="fa-solid fa-right-from-bracket"></i> Logout
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<h2>Faculty Dashboard</h2>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Total Students</h3>
+
+<p>120</p>
+
+</div>
+
+<div class="card">
+
+<h3>Today's Classes</h3>
+
+<p>5</p>
+
+</div>
+
+<div class="card">
+
+<h3>Pending Attendance</h3>
+
+<p>2</p>
+
+</div>
+
+<div class="card">
+
+<h3>Assignments</h3>
+
+<p>18</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>View Timetable</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h2>
+
+{{branch}} - {{year}} Year Timetable
+
+</h2>
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<table class="timetable">
+
+<tr>
+
+<th>Day</th>
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+<th>P4</th>
+<th>P5</th>
+<th>P6</th>
+
+</tr>
+
+{% for row in timetable %}
+
+<tr>
+
+<td>{{row.day}}</td>
+
+<td>{{row.period1}}</td>
+
+<td>{{row.period2}}</td>
+
+<td>{{row.period3}}</td>
+
+<td>{{row.period4}}</td>
+
+<td>{{row.period5}}</td>
+
+<td>{{row.period6}}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<div class="action-buttons">
+
+{% if "admin" in session %}
+
+<a href="/edit_timetable?branch={{branch}}&year={{year}}"
+class="btn btn-warning">
+
+Edit Timetable
+
+</a>
+
+<a href="/delete_timetable?branch={{branch}}&year={{year}}"
+class="btn btn-danger"
+onclick="return confirm('Delete this timetable?')">
+
+Delete
+
+</a>
+
+{% endif %}
+
+<a href="/timetable"
+class="btn">
+
+Back
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

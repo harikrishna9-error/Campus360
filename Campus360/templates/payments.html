@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Online Payments</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li><a href="/student_dashboard">Dashboard</a></li>
+
+<li><a href="/payments">Payments</a></li>
+
+<li><a href="/logout">Logout</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<h2>Payment History</h2>
+
+<table>
+
+<tr>
+
+<th>Amount</th>
+
+<th>Date</th>
+
+<th>Mode</th>
+
+</tr>
+
+{% for payment in payments %}
+
+<tr>
+
+<td>₹ {{ payment['amount'] }}</td>
+
+<td>{{ payment['payment_date'] }}</td>
+
+<td>{{ payment['payment_mode'] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Notifications</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+{% if "student" in session %}
+
+<li><a href="/student_dashboard">
+<i class="fa-solid fa-house"></i> Dashboard
+</a></li>
+
+<li><a href="/notifications">
+<i class="fa-solid fa-bell"></i> Notifications
+</a></li>
+
+<li><a href="/change_password">
+<i class="fa-solid fa-key"></i> Change Password
+</a></li>
+
+{% endif %}
+
+{% if "faculty" in session %}
+
+<li><a href="/faculty_dashboard">
+<i class="fa-solid fa-house"></i> Dashboard
+</a></li>
+
+<li><a href="/notifications">
+<i class="fa-solid fa-bell"></i> Notifications
+</a></li>
+
+{% endif %}
+
+{% if "admin" in session %}
+
+<li><a href="/admin_dashboard">
+<i class="fa-solid fa-house"></i> Dashboard
+</a></li>
+
+<li><a href="/notifications">
+<i class="fa-solid fa-bell"></i> Notifications
+</a></li>
+
+{% endif %}
+
+<li><a href="/logout">
+<i class="fa-solid fa-right-from-bracket"></i> Logout
+</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<div class="page-header">
+
+<h2>Latest Notifications</h2>
+
+{% if "admin" in session %}
+<a href="/add_notification" class="btn btn-success">
+<i class="fa-solid fa-plus"></i>
+Add Notification
+</a>
+{% endif %}
+
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<table>
+
+<tr>
+
+<th>Title</th>
+<th>Date</th>
+<th>Action</th>
+
+</tr>
+
+{% for note in notifications %}
+
+<tr>
+
+<td>{{ note['title'] }}</td>
+
+<td>{{ note['date'] }}</td>
+
+<td>
+
+<a href="/view_notification/{{ note['id'] }}" class="btn">
+View
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

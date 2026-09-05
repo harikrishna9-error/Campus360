@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li>
+<a href="/admin_dashboard">
+<i class="fa-solid fa-house"></i> Dashboard
+</a>
+</li>
+
+<li>
+<a href="/students">
+<i class="fa-solid fa-user-graduate"></i> Students
+</a>
+</li>
+
+<li>
+<a href="/faculty">
+<i class="fa-solid fa-chalkboard-user"></i> Faculty
+</a>
+</li>
+
+<li>
+<a href="/timetable">
+<i class="fa-solid fa-calendar-days"></i> Timetable
+</a>
+</li>
+
+<li>
+<a href="/attendance">
+<i class="fa-solid fa-calendar-check"></i> Attendance
+</a>
+</li>
+
+<li>
+<a href="/books">
+<i class="fa-solid fa-book"></i> Library
+</a>
+</li>
+
+<li>
+<a href="/marks">
+<i class="fa-solid fa-square-poll-vertical"></i> Marks
+</a>
+</li>
+
+<li>
+<a href="/payment_report">
+<i class="fa-solid fa-money-check-dollar"></i> Fee Management
+</a>
+</li>
+
+<li>
+<a href="/notifications">
+<i class="fa-solid fa-bell"></i> Notifications
+</a>
+</li>
+
+<li>
+<a href="/logout">
+<i class="fa-solid fa-right-from-bracket"></i> Logout
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<h2>Campus360 Admin Panel</h2>
+
+</div>
+
+<div class="stats-container">
+
+<div class="stat-card">
+
+<h2>Total Students</h2>
+
+<p>{{ students }}</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2>Total Faculty</h2>
+
+<p>{{ faculty }}</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2>Library Books</h2>
+
+<p>{{ books }}</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2>Notifications</h2>
+
+<p>{{ notifications }}</p>
+
+<div class="stat-card">
+
+<h2>Total Marks</h2>
+
+<p>{{ total_marks }}</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

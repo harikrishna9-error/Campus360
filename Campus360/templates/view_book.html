@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>View Book</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h2>Book Details</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }}">
+    {{ message }}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<p><b>Book Name :</b> {{ book['book_name'] }}</p>
+
+<p><b>Author :</b> {{ book['author'] }}</p>
+
+<p><b>Quantity :</b> {{ book['quantity'] }}</p>
+
+<br>
+
+<div class="action-buttons">
+
+<a href="/edit_book/{{ book['id'] }}" class="btn btn-warning">
+Edit
+</a>
+
+<a href="/delete_book/{{ book['id'] }}"
+class="btn btn-danger"
+style="margin-left:15px;"
+onclick="return confirm('Delete this book?')">
+Delete
+</a>
+
+<a href="/books"
+class="btn"
+style="margin-left:15px;">
+Back
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Faculty Profile</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="profile-card">
+
+<h2>{{ faculty['name'] }}</h2>
+
+<p><b>Faculty ID :</b> {{ faculty['facultyid'] }}</p>
+
+<p><b>Department :</b> {{ faculty['department'] }}</p>
+
+<p><b>Phone :</b> {{ faculty['phone'] }}</p>
+
+<p><b>Email :</b> {{ faculty['email'] }}</p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

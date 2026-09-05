@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Campus360 ERP</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+<div class="login-box">
+
+<div class="logo">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+</div>
+
+<h2>Campus360 ERP</h2>
+
+<!-- Flash Messages -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }}">
+    {{ message }}
+</div>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<form action="/login" method="POST">
+
+<select name="usertype" class="input-box" required>
+
+<option value="student">Student</option>
+
+<option value="faculty">Faculty</option>
+
+<option value="admin">Admin</option>
+
+</select>
+
+<input
+type="text"
+name="username"
+placeholder="Username / Roll No / Faculty ID"
+required>
+
+<input
+type="password"
+name="password"
+placeholder="Password"
+required>
+
+<button
+type="submit"
+class="login-btn">
+
+<i class="fa-solid fa-right-to-bracket"></i>
+
+Login
+
+</button>
+
+</form>
+
+<div class="register-link">
+
+<p>
+
+New Student?
+
+<a href="/register">
+
+Register Here
+
+</a>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Marks</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ===========================
+        SIDEBAR
+============================ -->
+
+{% if role=="student" %}
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li>
+<a href="/student_dashboard">
+<i class="fa-solid fa-house"></i>
+Dashboard
+</a>
+</li>
+
+<li>
+<a href="/marks" class="active">
+<i class="fa-solid fa-graduation-cap"></i>
+Marks
+</a>
+</li>
+
+<li>
+<a href="/logout">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</a>
+</li>
+
+</ul>
+
+</div>
+
+{% else %}
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+{% if "admin" in session %}
+
+<li>
+<a href="/admin_dashboard">
+<i class="fa-solid fa-house"></i>
+Dashboard
+</a>
+</li>
+
+{% endif %}
+
+{% if "faculty" in session %}
+
+<li>
+<a href="/faculty_dashboard">
+<i class="fa-solid fa-house"></i>
+Dashboard
+</a>
+</li>
+
+{% endif %}
+
+<li>
+<a href="/marks" class="active">
+<i class="fa-solid fa-graduation-cap"></i>
+Marks
+</a>
+</li>
+
+<li>
+<a href="/logout">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</a>
+</li>
+
+</ul>
+
+</div>
+
+{% endif %}
+
+<!-- ===========================
+        MAIN
+============================ -->
+
+<div class="main">
+
+<div class="page-header">
+
+{% if role=="student" %}
+
+<h2>My Marks</h2>
+
+{% else %}
+
+<h2>Marks Management</h2>
+
+{% endif %}
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+
+{{message}}
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+{% if "faculty" in session %}
+
+<a
+href="/mark_marks?branch={{branch}}&year={{year}}&semester={{semester}}&exam={{exam}}"
+class="btn btn-success">
+
+<i class="fa-solid fa-square-poll-vertical"></i>
+
+Enter Marks
+
+</a>
+
+{% endif %}
+
+</div>
+
+<!-- ===========================
+        STUDENT VIEW
+============================ -->
+
+{% if role=="student" %}
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Semester</th>
+
+<th>Exam</th>
+
+<th>Python</th>
+
+<th>Java</th>
+
+<th>DBMS</th>
+
+<th>OS</th>
+
+<th>CN</th>
+
+<th>Total</th>
+
+<th>%</th>
+
+<th>Grade</th>
+
+<th>Result</th>
+
+</tr>
+
+{% for row in marks %}
+
+<tr>
+
+<td>{{row['semester']}}</td>
+
+<td>{{row['exam']}}</td>
+
+<td>{{row['python']}}</td>
+
+<td>{{row['java']}}</td>
+
+<td>{{row['dbms']}}</td>
+
+<td>{{row['os']}}</td>
+
+<td>{{row['cn']}}</td>
+
+<td>{{row['total']}}</td>
+
+<td>{{row['percentage']}}</td>
+
+<td>{{row['grade']}}</td>
+
+<td>
+
+{% if row['result']=="PASS" %}
+
+<span class="badge-success">
+
+PASS
+
+</span>
+
+{% else %}
+
+<span class="badge-danger">
+
+FAIL
+
+</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+{% else %}
+
+<form method="GET">
+
+<div class="filter-form">
+
+<select name="branch" required>
+
+<option value="">Select Branch</option>
+
+<option value="CSE" {% if branch=="CSE" %}selected{% endif %}>CSE</option>
+<option value="ECE" {% if branch=="ECE" %}selected{% endif %}>ECE</option>
+<option value="EEE" {% if branch=="EEE" %}selected{% endif %}>EEE</option>
+<option value="MECH" {% if branch=="MECH" %}selected{% endif %}>MECH</option>
+<option value="CIVIL" {% if branch=="CIVIL" %}selected{% endif %}>CIVIL</option>
+
+</select>
+
+<select name="year" required>
+
+<option value="">Select Year</option>
+
+<option value="1" {% if year=="1" %}selected{% endif %}>1</option>
+<option value="2" {% if year=="2" %}selected{% endif %}>2</option>
+<option value="3" {% if year=="3" %}selected{% endif %}>3</option>
+<option value="4" {% if year=="4" %}selected{% endif %}>4</option>
+
+</select>
+
+<select name="semester" required>
+
+<option value="">Semester</option>
+
+<option value="1" {% if semester=="1" %}selected{% endif %}>1</option>
+<option value="2" {% if semester=="2" %}selected{% endif %}>2</option>
+
+</select>
+
+<select name="exam" required>
+
+<option value="">Exam</option>
+
+<option value="Mid-1" {% if exam=="Mid-1" %}selected{% endif %}>Mid-1</option>
+<option value="Mid-2" {% if exam=="Mid-2" %}selected{% endif %}>Mid-2</option>
+<option value="Internal" {% if exam=="Internal" %}selected{% endif %}>Internal</option>
+<option value="External" {% if exam=="External" %}selected{% endif %}>External</option>
+
+</select>
+
+<button class="btn">
+
+<i class="fa-solid fa-eye"></i>
+
+View
+
+</button>
+
+</div>
+
+</form>
+
+<br>
+
+{% if students %}
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Roll No</th>
+<th>Name</th>
+
+<th>Python</th>
+<th>Java</th>
+<th>DBMS</th>
+<th>OS</th>
+<th>CN</th>
+
+<th>Total</th>
+<th>%</th>
+<th>Grade</th>
+<th>Result</th>
+
+<th>Actions</th>
+
+</tr>
+
+{% for row in students %}
+
+<tr>
+
+<td>{{row['rollno']}}</td>
+
+<td>{{row['name']}}</td>
+
+<td>{{row['python']}}</td>
+<td>{{row['java']}}</td>
+<td>{{row['dbms']}}</td>
+<td>{{row['os']}}</td>
+<td>{{row['cn']}}</td>
+
+<td>{{row['total']}}</td>
+
+<td>{{row['percentage']}}</td>
+
+<td>{{row['grade']}}</td>
+
+<td>
+
+{% if row['result']=="PASS" %}
+
+<span class="badge-success">
+
+PASS
+
+</span>
+
+{% else %}
+
+<span class="badge-danger">
+
+FAIL
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td class="action-cell">
+
+<a
+
+href="/view_marks?branch={{branch}}&year={{year}}&semester={{semester}}&exam={{exam}}"
+
+class="btn btn-view">
+
+<i class="fa-solid fa-eye"></i>
+
+</a>
+
+<a
+
+href="/edit_marks/{{row['id']}}"
+
+class="btn btn-warning">
+
+<i class="fa-solid fa-pen"></i>
+
+</a>
+
+<a
+
+href="/delete_marks/{{row['id']}}"
+
+class="btn btn-danger"
+
+onclick="return confirm('Delete this marks record?')">
+
+<i class="fa-solid fa-trash"></i>
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endif %}
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>

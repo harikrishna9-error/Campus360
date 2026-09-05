@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Faculty List</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li><a href="/admin_dashboard"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+
+<li><a href="/faculty"><i class="fa-solid fa-chalkboard-user"></i> Faculty</a></li>
+
+<li><a href="/add_faculty"><i class="fa-solid fa-user-plus"></i> Add Faculty</a></li>
+
+<li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<h2>Faculty List</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }}">
+{{ message }}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="page-header">
+    
+<form action="/faculty" method="GET">
+
+<input
+type="text"
+name="search"
+value="{{ request.args.get('search','') }}"
+placeholder="Search Faculty"
+class="search-bar">
+
+<button class="btn">
+<i class="fa-solid fa-magnifying-glass"></i>
+Search
+</button>
+
+</form>
+
+<a href="/add_faculty" class="btn btn-success">
+<i class="fa-solid fa-user-plus"></i>
+Add Faculty
+</a>
+
+</div>
+
+Search
+
+
+<table>
+
+<tr>
+
+<th>Faculty ID</th>
+
+<th>Name</th>
+
+<th>Department</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for f in faculty %}
+
+<tr>
+
+<td>{{ f['facultyid'] }}</td>
+
+<td>{{ f['name'] }}</td>
+
+<td>{{ f['department'] }}</td>
+
+<td>
+
+<a href="/view_faculty/{{ f['facultyid'] }}" class="btn">
+
+View
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

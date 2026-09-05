@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Library</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li><a href="/admin_dashboard">
+<i class="fa-solid fa-house"></i> Dashboard
+</a></li>
+
+<li><a href="/books">
+<i class="fa-solid fa-book"></i> Library
+</a></li>
+
+<li><a href="/logout">
+<i class="fa-solid fa-right-from-bracket"></i> Logout
+</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<h2>Library Books</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }}">
+    {{ message }}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="page-header">
+    
+<form method="GET" action="/books">
+
+<input
+type="text"
+name="search"
+value="{{ request.args.get('search','') }}"
+placeholder="Search Book"
+class="search-bar">
+
+<button class="btn">
+<i class="fa-solid fa-magnifying-glass"></i>
+Search
+</button>
+
+</form>
+
+<a href="/add_book" class="btn btn-success">
+<i class="fa-solid fa-book"></i>
+Add Book
+</a>
+
+</div>
+
+<table>
+
+<tr>
+
+<th>Book Name</th>
+<th>Author</th>
+<th>Action</th>
+
+</tr>
+
+{% for book in books %}
+
+<tr>
+
+<td>{{ book['book_name'] }}</td>
+
+<td>{{ book['author'] }}</td>
+
+<td>
+
+<a href="/view_book/{{ book['id'] }}" class="btn">
+View
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

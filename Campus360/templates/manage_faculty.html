@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Manage Faculty</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h2>Faculty Management</h2>
+
+<table>
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Department</th>
+
+<th>Phone</th>
+
+<th>Email</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for faculty in faculties %}
+
+<tr>
+
+<td>{{ faculty['facultyid'] }}</td>
+
+<td>{{ faculty['name'] }}</td>
+
+<td>{{ faculty['department'] }}</td>
+
+<td>{{ faculty['phone'] }}</td>
+
+<td>{{ faculty['email'] }}</td>
+
+<td>
+
+<a href="/delete_faculty/{{faculty['facultyid']}}" class="btn-danger btn">
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

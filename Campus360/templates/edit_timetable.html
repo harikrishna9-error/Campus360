@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Timetable</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="form-box">
+
+<h2>
+
+Edit {{ branch }} - {{ year }} Year Timetable
+
+</h2>
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<form method="POST">
+
+<table class="timetable">
+
+<tr>
+
+<th>Day</th>
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+<th>P4</th>
+<th>P5</th>
+<th>P6</th>
+
+</tr>
+
+{% for row in timetable %}
+
+<tr>
+
+<input
+type="hidden"
+name="id"
+value="{{ row['id'] }}">
+
+<td>
+
+<input
+type="text"
+name="day"
+value="{{ row['day'] }}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="text"
+name="period1"
+value="{{ row['period1'] }}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="text"
+name="period2"
+value="{{ row['period2'] }}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="text"
+name="period3"
+value="{{ row['period3'] }}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="text"
+name="period4"
+value="{{ row['period4'] }}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="text"
+name="period5"
+value="{{ row['period5'] }}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="text"
+name="period6"
+value="{{ row['period6'] }}"
+required>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<button
+type="submit"
+class="btn btn-success">
+
+Update Timetable
+
+</button>
+
+<a href="/view_timetable?branch={{branch}}&year={{year}}"
+class="btn">
+
+Cancel
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

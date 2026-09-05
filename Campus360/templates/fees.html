@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Fee Details</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li><a href="/student_dashboard">Dashboard</a></li>
+
+<li><a href="/fees">Fees</a></li>
+
+<li>
+    <a href="/change_password">
+        <i class="fa-solid fa-key"></i> Change Password
+    </a>
+</li>
+
+<li><a href="/logout">Logout</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<div class="fee-card">
+
+<h2>Fee Information</h2>
+
+<table>
+
+<tr>
+
+<th>Total Fee</th>
+
+<th>Paid</th>
+
+<th>Balance</th>
+
+<th>Status</th>
+
+</tr>
+
+<tr>
+
+<td>₹ {{ fee['total_fee'] }}</td>
+<td>₹ {{ fee['paid'] }}</td>
+<td>₹ {{ fee['balance'] }}</td>
+<td>{{ fee['status'] }}</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

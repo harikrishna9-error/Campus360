@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Mark Marks</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="page-header">
+
+<h2>Mark Student Marks</h2>
+
+</div>
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<form method="POST">
+
+<input type="hidden" name="branch" value="{{branch}}">
+<input type="hidden" name="year" value="{{year}}">
+<input type="hidden" name="semester" value="{{semester}}">
+<input type="hidden" name="exam" value="{{exam}}">
+
+<div class="info-bar">
+
+<b>Branch :</b> {{branch}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Year :</b> {{year}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Semester :</b> {{semester}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Exam :</b> {{exam}}
+
+</div>
+
+<br>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Roll No</th>
+
+<th>Name</th>
+
+<th>Python</th>
+
+<th>Java</th>
+
+<th>DBMS</th>
+
+<th>OS</th>
+
+<th>CN</th>
+
+</tr>
+
+{% for student in students %}
+
+<tr>
+
+<td>
+
+{{student['rollno']}}
+
+<input
+type="hidden"
+name="rollno"
+value="{{student['rollno']}}">
+
+</td>
+
+<td>
+
+{{student['name']}}
+
+</td>
+
+<td>
+
+<input
+type="number"
+name="python_{{loop.index0}}"
+min="0"
+max="100"
+value="0"
+required>
+
+</td>
+
+<td>
+
+<input
+type="number"
+name="java_{{loop.index0}}"
+min="0"
+max="100"
+value="0"
+required>
+
+</td>
+
+<td>
+
+<input
+type="number"
+name="dbms_{{loop.index0}}"
+min="0"
+max="100"
+value="0"
+required>
+
+</td>
+
+<td>
+
+<input
+type="number"
+name="os_{{loop.index0}}"
+min="0"
+max="100"
+value="0"
+required>
+
+</td>
+
+<td>
+
+<input
+type="number"
+name="cn_{{loop.index0}}"
+min="0"
+max="100"
+value="0"
+required>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<br>
+
+<div class="action-buttons">
+
+<button
+type="submit"
+class="btn btn-success">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+Save Marks
+
+</button>
+
+<a
+
+href="/marks?branch={{branch}}&year={{year}}&semester={{semester}}&exam={{exam}}"
+
+class="btn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</body>
+
+</html>

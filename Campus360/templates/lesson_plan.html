@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Lesson Plan</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li><a href="/faculty_dashboard">Dashboard</a></li>
+
+<li><a href="/lesson_plan">Lesson Plan</a></li>
+
+<li><a href="/logout">Logout</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<h2>Lesson Plan</h2>
+
+<table>
+
+<tr>
+
+<th>Subject</th>
+
+<th>Faculty</th>
+
+<th>Week</th>
+
+<th>Topic</th>
+
+</tr>
+
+{% for lesson in lessons %}
+
+<tr>
+
+<td>{{ lesson['subject'] }}</td>
+
+<td>{{ lesson['faculty'] }}</td>
+
+<td>{{ lesson['week'] }}</td>
+
+<td>{{ lesson['topic'] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

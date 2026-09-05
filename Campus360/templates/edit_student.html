@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Student</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="form-box">
+
+<h2>Edit Student</h2>
+
+<form action="/edit_student/{{ student['rollno'] }}" method="POST">
+
+<input
+type="text"
+name="name"
+value="{{ student['name'] }}"
+placeholder="Name"
+required>
+
+<input
+type="text"
+name="branch"
+value="{{ student['branch'] }}"
+placeholder="Branch"
+required>
+
+<input
+type="text"
+name="year"
+value="{{ student['year'] }}"
+placeholder="Year"
+required>
+
+<input
+type="text"
+name="section"
+value="{{ student['section'] }}"
+placeholder="Section"
+required>
+
+<input
+type="text"
+name="phone"
+value="{{ student['phone'] }}"
+placeholder="Phone">
+
+<input
+type="email"
+name="email"
+value="{{ student['email'] }}"
+placeholder="Email">
+
+<input
+type="text"
+name="address"
+value="{{ student['address'] }}"
+placeholder="Address">
+
+<input
+type="date"
+name="dob"
+value="{{ student['dob'] }}">
+
+<input
+type="text"
+name="bloodgroup"
+value="{{ student['bloodgroup'] }}"
+placeholder="Blood Group">
+
+<br><br>
+
+<button
+type="submit"
+class="btn btn-success">
+
+Update Student
+
+</button>
+
+<a
+href="/view_student/{{ student['rollno'] }}"
+class="btn">
+
+Cancel
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

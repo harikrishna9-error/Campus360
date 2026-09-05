@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>View Student</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="profile-card">
+
+<h2>Student Details</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }}">
+    {{ message }}
+</div>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<p><b>Roll No :</b> {{ student['rollno'] }}</p>
+
+<p><b>Name :</b> {{ student['name'] }}</p>
+
+<p><b>Branch :</b> {{ student['branch'] }}</p>
+
+<p><b>Year :</b> {{ student['year'] }}</p>
+
+<p><b>Section :</b> {{ student['section'] }}</p>
+
+<p><b>Phone :</b> {{ student['phone'] }}</p>
+
+<p><b>Email :</b> {{ student['email'] }}</p>
+
+<p><b>Address :</b> {{ student['address'] }}</p>
+
+<p><b>DOB :</b> {{ student['dob'] }}</p>
+
+<p><b>Blood Group :</b> {{ student['bloodgroup'] }}</p>
+
+<br><br>
+
+<div style="margin-top:25px;">
+
+{% if "admin" in session %}
+
+<a href="/edit_student/{{ student['rollno'] }}"
+class="btn btn-warning"
+style="margin-right:15px; padding:10px 20px;">
+
+Edit
+
+</a>
+
+<a href="/delete_student/{{ student['rollno'] }}"
+class="btn btn-danger"
+style="margin-right:15px; padding:10px 20px;"
+onclick="return confirm('Delete this student?')">
+
+Delete
+
+</a>
+
+{% endif %}
+
+<a href="/students"
+class="btn"
+style="padding:10px 20px;">
+
+Back
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

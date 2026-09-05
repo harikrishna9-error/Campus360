@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>View Faculty</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="profile-card">
+
+<h2>Faculty Details</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }}">
+{{ message }}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<p><b>Faculty ID :</b> {{ faculty['facultyid'] }}</p>
+
+<p><b>Name :</b> {{ faculty['name'] }}</p>
+
+<p><b>Department :</b> {{ faculty['department'] }}</p>
+
+<p><b>Phone :</b> {{ faculty['phone'] }}</p>
+
+<p><b>Email :</b> {{ faculty['email'] }}</p>
+
+<br><br>
+
+<div style="text-align:center;">
+
+<a href="/edit_faculty/{{ faculty['facultyid'] }}"
+class="btn btn-warning"
+style="margin-right:15px;">
+Edit
+</a>
+
+<a href="/delete_faculty/{{ faculty['facultyid'] }}"
+class="btn btn-danger"
+style="margin-right:15px;"
+onclick="return confirm('Are you sure?')">
+Delete
+</a>
+
+<a href="/faculty"
+class="btn">
+Back
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

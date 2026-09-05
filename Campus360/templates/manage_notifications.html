@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Manage Notifications</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h2>Manage Notifications</h2>
+
+<table>
+
+<tr>
+
+<th>Title</th>
+
+<th>Message</th>
+
+<th>Date</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for note in notifications %}
+
+<tr>
+
+<td>{{ note['title'] }}</td>
+
+<td>{{ note['message'] }}</td>
+
+<td>{{ note['date'] }}</td>
+
+<td>
+
+<a href="/delete_notification/{{note['id']}}" class="btn-danger btn">
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

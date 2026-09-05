@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Hall Ticket</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Campus360</h2>
+
+<ul>
+
+<li><a href="/student_dashboard">Dashboard</a></li>
+
+<li><a href="/hallticket">Hall Ticket</a></li>
+
+<li><a href="/change_password">
+<i class="fa-solid fa-key"></i> Change Password
+</a></li>
+
+<li><a href="/logout">Logout</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<h2>Hall Ticket Details</h2>
+
+<table>
+
+<tr>
+
+<th>Hall Ticket No</th>
+
+<th>Semester</th>
+
+<th>Download</th>
+
+</tr>
+
+<tr>
+
+<td>{{ hallticket['hallticket_no'] }}</td>
+
+<td>{{ hallticket['semester'] }}</td>
+
+<td>
+
+<a href="#" class="btn-success btn">
+
+Download
+
+</a>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</body>
+
+</html>

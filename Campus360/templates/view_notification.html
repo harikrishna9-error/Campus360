@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>View Notification</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h2>{{ notification['title'] }}</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-{{ category }}">
+{{ message }}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<p>{{ notification['message'] }}</p>
+
+<p><strong>Date :</strong> {{ notification['date'] }}</p>
+
+<br>
+
+<div class="action-buttons">
+
+{% if "admin" in session %}
+
+<a href="/edit_notification/{{ notification['id'] }}"
+class="btn btn-warning">
+
+Edit
+
+</a>
+
+<a href="/delete_notification/{{ notification['id'] }}"
+class="btn btn-danger"
+onclick="return confirm('Delete this notification?')">
+
+Delete
+
+</a>
+
+{% endif %}
+
+<a href="/notifications"
+class="btn">
+
+Back
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Online Transactions</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h2>Transaction History</h2>
+
+<table>
+
+<tr>
+
+<th>Transaction ID</th>
+
+<th>Amount</th>
+
+<th>Date</th>
+
+<th>Status</th>
+
+</tr>
+
+{% for t in transactions %}
+
+<tr>
+
+<td>{{ t['id'] }}</td>
+
+<td>{{ t['amount'] }}</td>
+
+<td>{{ t['date'] }}</td>
+
+<td>{{ t['status'] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>

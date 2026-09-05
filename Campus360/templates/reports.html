@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Reports</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h2>Campus Reports</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Total Students</h3>
+
+<p>{{ total_students }}</p>
+
+</div>
+
+<div class="card">
+
+<h3>Total Faculty</h3>
+
+<p>{{ total_faculty }}</p>
+
+</div>
+
+<div class="card">
+
+<h3>Average Attendance</h3>
+
+<p>{{ avg_attendance }}%</p>
+
+</div>
+
+<div class="card">
+
+<h3>Students Passed</h3>
+
+<p>{{ passed }}</p>
+
+</div>
+
+<div class="card">
+
+<h3>Students Failed</h3>
+
+<p>{{ failed }}</p>
+
+</div>
+
+<div class="card">
+
+<h3>Fees Collected</h3>
+
+<p>₹ {{ fees_collected }}</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

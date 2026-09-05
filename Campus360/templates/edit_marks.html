@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Marks</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="page-header">
+
+<h2>Edit Marks</h2>
+
+</div>
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+
+{{message}}
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<div class="info-bar">
+
+<b>Roll No :</b> {{marks['rollno']}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Semester :</b> {{marks['semester']}}
+
+&nbsp;&nbsp;&nbsp;
+
+<b>Exam :</b> {{marks['exam']}}
+
+</div>
+
+<br>
+
+<form method="POST">
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>Python</th>
+
+<th>Java</th>
+
+<th>DBMS</th>
+
+<th>OS</th>
+
+<th>CN</th>
+
+</tr>
+
+<tr>
+
+<td>
+
+<input
+type="number"
+name="python"
+min="0"
+max="100"
+value="{{marks['python']}}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="number"
+name="java"
+min="0"
+max="100"
+value="{{marks['java']}}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="number"
+name="dbms"
+min="0"
+max="100"
+value="{{marks['dbms']}}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="number"
+name="os"
+min="0"
+max="100"
+value="{{marks['os']}}"
+required>
+
+</td>
+
+<td>
+
+<input
+type="number"
+name="cn"
+min="0"
+max="100"
+value="{{marks['cn']}}"
+required>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<br>
+
+<div class="action-buttons">
+
+<button
+type="submit"
+class="btn btn-success">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+Update Marks
+
+</button>
+
+<a
+
+href="/view_marks?branch={{marks['branch']}}&year={{marks['year']}}&semester={{marks['semester']}}&exam={{marks['exam']}}"
+
+class="btn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</body>
+
+</html>
