@@ -4,6 +4,9 @@ import Login from './pages/Login'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import FacultyDashboard from './pages/faculty/FacultyDashboard'
 import StudentDashboard from './pages/student/StudentDashboard'
+import StudentsList from './pages/students/StudentsList'
+import StudentDetails from './pages/students/StudentDetails'
+import StudentForm from './pages/students/StudentForm'
 import Layout from './components/Layout'
 import './index.css'
 
@@ -59,6 +62,8 @@ function AppRoutes() {
     <Routes>
       <Route path="/login" element={<Navigate to={`/${profile.role}`} replace />} />
       <Route path="/" element={<DashboardRouter />} />
+
+      {/* Admin */}
       <Route
         path="/admin"
         element={
@@ -68,7 +73,12 @@ function AppRoutes() {
         }
       >
         <Route index element={<AdminDashboard />} />
+        <Route path="students" element={<StudentsList />} />
+        <Route path="students/:rollno" element={<StudentDetails />} />
+        <Route path="students/:rollno/edit" element={<StudentForm />} />
       </Route>
+
+      {/* Faculty */}
       <Route
         path="/faculty"
         element={
@@ -78,7 +88,11 @@ function AppRoutes() {
         }
       >
         <Route index element={<FacultyDashboard />} />
+        <Route path="students" element={<StudentsList />} />
+        <Route path="students/:rollno" element={<StudentDetails />} />
       </Route>
+
+      {/* Student */}
       <Route
         path="/student"
         element={
@@ -89,6 +103,22 @@ function AppRoutes() {
       >
         <Route index element={<StudentDashboard />} />
       </Route>
+
+      {/* Shared students route accessible by admin + faculty */}
+      <Route
+        path="/students"
+        element={
+          <ProtectedRoute roles={['admin', 'faculty']}>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<StudentsList />} />
+        <Route path=":rollno" element={<StudentDetails />} />
+        <Route path=":rollno/edit" element={<StudentForm />} />
+        <Route path="add" element={<StudentForm />} />
+      </Route>
+
       <Route path="*" element={<Navigate to={`/${profile.role}`} replace />} />
     </Routes>
   )

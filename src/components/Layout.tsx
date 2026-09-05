@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 interface NavItem {
@@ -10,7 +10,7 @@ interface NavItem {
 
 const adminNav: NavItem[] = [
   { label: 'Dashboard', path: '/admin', icon: '🏠' },
-  { label: 'Students', path: '/admin/students', icon: '🎓' },
+  { label: 'Students', path: '/students', icon: '🎓' },
   { label: 'Faculty', path: '/admin/faculty', icon: '👨‍🏫' },
   { label: 'Attendance', path: '/admin/attendance', icon: '✅' },
   { label: 'Marks', path: '/admin/marks', icon: '📊' },
@@ -31,7 +31,7 @@ const adminNav: NavItem[] = [
 
 const facultyNav: NavItem[] = [
   { label: 'Dashboard', path: '/faculty', icon: '🏠' },
-  { label: 'Students', path: '/faculty/students', icon: '🎓' },
+  { label: 'Students', path: '/students', icon: '🎓' },
   { label: 'Attendance', path: '/faculty/attendance', icon: '✅' },
   { label: 'Marks', path: '/faculty/marks', icon: '📊' },
   { label: 'Timetable', path: '/faculty/timetable', icon: '📅' },
@@ -64,14 +64,22 @@ function getNavItems(role: string): NavItem[] {
   return studentNav
 }
 
+function isPathActive(pathname: string, itemPath: string): boolean {
+  if (itemPath === '/students') {
+    return pathname.startsWith('/students')
+  }
+  return pathname === itemPath
+}
+
 function getPageTitle(pathname: string, navItems: NavItem[]): string {
-  const match = navItems.find((item) => pathname === item.path || (item.path !== `/${pathname.split('/')[1]}` && pathname.startsWith(item.path) && item.path !== '/admin' && item.path !== '/faculty' && item.path !== '/student'))
+  const match = navItems.find((item) => isPathActive(pathname, item.path))
   return match?.label || 'Dashboard'
 }
 
 export default function Layout() {
   const { profile, signOut } = useAuth()
   const location = useLocation()
+  const navigate = useNavigate()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   if (!profile) return null
@@ -79,6 +87,18 @@ export default function Layout() {
   const navItems = getNavItems(profile.role)
   const title = getPageTitle(location.pathname, navItems)
   const initials = profile.name.charAt(0).toUpperCase()
+
+  function handleNav(e: React.MouseEvent, path: string) {
+    e.preventDefault()
+    setSidebarOpen(false)
+    navigate(path)
+  }
+
+  function handleLogout(e: React.MouseEvent) {
+    e.preventDefault()
+    signOut()
+    navigate('/login')
+  }
 
   return (
     <div className="layout">
@@ -96,8 +116,8 @@ export default function Layout() {
             <li key={item.path}>
               <a
                 href={item.path}
-                className={location.pathname === item.path ? 'active' : ''}
-                onClick={() => setSidebarOpen(false)}
+                className={isPathActive(location.pathname, item.path) ? 'active' : ''}
+                onClick={(e) => handleNav(e, item.path)}
               >
                 <span className="icon">{item.icon}</span>
                 {item.label}
@@ -105,13 +125,7 @@ export default function Layout() {
             </li>
           ))}
           <li>
-            <a
-              href="/login"
-              onClick={(e) => {
-                e.preventDefault()
-                signOut()
-              }}
-            >
+            <a href="/login" onClick={handleLogout}>
               <span className="icon">🚪</span>
               Logout
             </a>
